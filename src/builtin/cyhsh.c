@@ -10,14 +10,10 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-// 支持的最长命令长度
-#define MAX_CMD_LEN 256
-// 支持的最多参数 --- TODO:
+// 支持的单次命令最多参数
 #define MAX_ARG_NR 16
-// 支持的最长路径 --- TODO:
+// 支持的最长路径
 #define MAX_PATH_LEN 1024
-// 缓冲区大小 --- TODO:
-#define BUFLEN 1024
 
 // 存放当前目录路径
 static char cwd[MAX_PATH_LEN];
@@ -170,6 +166,7 @@ int cyhsh_main()
         print_prompt();
         // 读取用户输入，遇到回车时返回，不会携带回车
         cmd = readline("");
+        assert(cmd);
         // 输入为空，则重新开始循环，要求用户输入新的命令
         if (cmd[0] == 0)
         {
